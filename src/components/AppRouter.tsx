@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {Switch, Route, Redirect} from "react-router-dom";
-import {privateRoutes, pubicRoutes} from "../router";
+import {privateRoutes, pubicRoutes, RouteNames} from "../router";
 
 const AppRouter: FC = () => {
 
@@ -11,14 +11,16 @@ const AppRouter: FC = () => {
             ?
             <Switch>
                 {privateRoutes.map((route) => {
-                   return <Route path={route.path} render={() => route.component} exact={route.exact}/>
+                   return <Route key={route.path} path={route.path} component={route.component} exact={route.exact}/>
                 })}
+                <Redirect to={RouteNames.EVENT}/>
             </Switch>
             :
             <Switch>
                 {pubicRoutes.map((route) => {
-                    return <Route {...route}/>
+                    return <Route key={route.path} {...route}/>
                 })}
+                <Redirect to={RouteNames.LOGIN}/>
             </Switch>
 
     );
