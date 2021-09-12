@@ -3,22 +3,25 @@ import {Menu, Row, Layout, Col} from "antd";
 import {useHistory} from "react-router-dom";
 import {RouteNames} from '../router'
 import {useTypedSelector} from "../hooks/useTypedSelector";
+import {useDispatch} from "react-redux";
+import {AuthAC} from "../store/reducers/auth/actionCreators";
 
 
 const NavBar: FC = () => {
-    const {isAuth} = useTypedSelector((state) => state.authReducer)
+    const {isAuth, user} = useTypedSelector((state) => state.authReducer)
     const router = useHistory()
+    const dispatch = useDispatch()
     return (
         <Layout.Header>
             <Row justify="end">
                 {isAuth
                     ? <Col span={4}>
                         <Menu theme='dark' mode='horizontal' selectable={false}>
-                            <Menu.Item>
-                                Igor
+                            <Menu.Item key={1}>
+                                {user.username}
                             </Menu.Item>
-                            <Menu.Item onClick={() => console.log('Exit')}
-                                       key={1}>
+                            <Menu.Item  onClick={() => dispatch(AuthAC.logout())}
+                                       key={2}>
                                 Exit
                             </Menu.Item>
                         </Menu>
