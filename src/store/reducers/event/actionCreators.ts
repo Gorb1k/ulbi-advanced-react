@@ -1,17 +1,17 @@
 import {IUser} from "../../../models/IUser";
-import {EventActionEnum} from "./types";
+import {EventActionEnum, setEventsAction, setGuestsAction} from "./types";
 import {IEvent} from "../../../models/IEvent";
 import {AppDispatchType} from "../../index";
-import axios from "axios";
+import UserService from "../../../api/UserService";
 
 
 export const EventAC = {
-    setGuests: (guests: IUser[]) => ({type: EventActionEnum.SET_GUESTS, payload: guests}),
-    setEvents: (events: IEvent[]) => ({type: EventActionEnum.SET_EVENTS, payload: events}),
+    setGuests: (guests: IUser[]):setGuestsAction => ({type: EventActionEnum.SET_GUESTS, payload: guests}),
+    setEvents: (events: IEvent[]):setEventsAction => ({type: EventActionEnum.SET_EVENTS, payload: events}),
     fetchGuests: () => async (dispatch:AppDispatchType) => {
         try {
-            const response = await axios.get<IUser[]>('./users.json')
-            EventAC.setGuests(response.data)
+            const response = await UserService.getUsers()
+            dispatch(EventAC.setGuests(response.data))
         }catch (e) {
             console.log(e)
         }

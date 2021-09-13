@@ -1,11 +1,18 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import EventCalendar from "../components/EventCalendar";
 import {Button, Modal, Row} from "antd";
 import EventForm from "../components/EventForm";
+import {useActions} from "../hooks/useActions";
+import {useTypedSelector} from "../hooks/useTypedSelector";
 
 const Event: FC = () => {
 
     const [modal, setModal] = useState<boolean>(false)
+    const {fetchGuests} = useActions()
+    const guests = useTypedSelector((state) => state.eventReducer.guests)
+    useEffect(() => {
+        fetchGuests()
+    },[])
 
     return (
         <div>
@@ -19,7 +26,7 @@ const Event: FC = () => {
                 footer={null}
                 onCancel={() => {setModal(false)}}
             >
-                <EventForm/>
+                <EventForm guests={guests}/>
             </Modal>
         </div>
     );
