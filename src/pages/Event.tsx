@@ -24,7 +24,6 @@ const Event: FC = () => {
 
     return (
         <Layout>
-
             <EventCalendar events={events}/>
             <Row justify={"center"}>
                 <Button onClick={() => {
