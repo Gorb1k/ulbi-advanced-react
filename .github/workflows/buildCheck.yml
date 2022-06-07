@@ -17,9 +17,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: install modules
-        run: npm install
-      - name: build app
-        run: npm run build
+        run: echo "fake npm install"
+      - name: test app
+        run: echo "Hello! Fake tests!"
 
 
 

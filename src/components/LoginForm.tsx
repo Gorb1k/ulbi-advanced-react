@@ -45,6 +45,9 @@ const LoginForm: FC = () => {
                 <Button type="primary" htmlType="submit" loading={isLoading}>
                     Войти
                 </Button>
+                <Button type="primary" disabled>
+                    Регистрация
+                </Button>
             </Form.Item>
         </Form>
     );
